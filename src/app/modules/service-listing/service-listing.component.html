@@ -44,6 +44,7 @@
             [class.active]="sibling.code === groupCode"
             [routerLink]="['/services', categoryCode, sibling.code]"
             [attr.aria-current]="sibling.code === groupCode ? 'page' : null"
+            (click)="onSiblingPick(sibling.code)"
           >
             <span class="uc-sl-select-img">
               <img *ngIf="sibling.image; else siblingIcon" [src]="sibling.image" [alt]="sibling.name" loading="lazy" decoding="async" />
@@ -73,7 +74,7 @@
         </div>
       </div>
 
-      <section class="uc-sl-section">
+      <section class="uc-sl-section" id="sl-services">
         <h2 class="uc-sl-section-title">Services</h2>
 
         <div

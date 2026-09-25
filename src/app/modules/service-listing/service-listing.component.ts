@@ -45,6 +45,7 @@ export class ServiceListingComponent implements OnInit, OnDestroy {
 
   highlightedId: string | null = null;
   private highlightTimer?: ReturnType<typeof setTimeout>;
+  private scrollToServicesOnLoad = false;
 
   private listing: ListingItem[] = [];
   private sub = new Subscription();
@@ -77,6 +78,10 @@ export class ServiceListingComponent implements OnInit, OnDestroy {
         this.buildPage();
         this.isLoading = false;
         this.highlightFromQuery();
+        if (this.scrollToServicesOnLoad) {
+          this.scrollToServicesOnLoad = false;
+          this.scrollToServices();
+        }
       })
     );
     // Search results link to a specific service via ?service=<id>
@@ -97,6 +102,22 @@ export class ServiceListingComponent implements OnInit, OnDestroy {
     // Wait for the list to render (and the router's scroll-to-top) before scrolling
     setTimeout(() => document.getElementById(`svc-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
     this.highlightTimer = setTimeout(() => (this.highlightedId = null), 2600);
+  }
+
+  /** Mobile stacks banner + tiles above the list, so jump to the list after picking a tile */
+  onSiblingPick(code: string): void {
+    if (!this.isMobile()) return;
+    if (code === this.groupCode) this.scrollToServices(); // same group: no navigation happens
+    else this.scrollToServicesOnLoad = true;
+  }
+
+  private scrollToServices(): void {
+    // Same delay as highlightFromQuery — let the list render and the router's scroll-to-top run first
+    setTimeout(() => document.getElementById('sl-services')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  }
+
+  private isMobile(): boolean {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
   }
 
   get cartRows(): CartRow[] {

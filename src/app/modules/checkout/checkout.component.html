@@ -53,16 +53,6 @@
             <button type="button" class="co-ghost-btn" (click)="editAddress()">Edit</button>
           </div>
 
-          <div class="co-step co-step-col">
-            <div class="co-step-head">
-              <span class="co-step-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#0f0f0f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              </span>
-              <span class="co-step-label">Slot</span>
-            </div>
-            <button type="button" class="co-primary-btn full" (click)="selectSlot()">Select time &amp; date</button>
-          </div>
-
           <div class="co-step co-step-disabled">
             <span class="co-step-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#a3a3a3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
@@ -175,8 +165,13 @@
   <!-- Sticky bottom bar -->
   <div class="co-bottombar" *ngIf="rows.length">
     <div class="co-bottombar-inner">
-      <span class="co-bottombar-amt">Amount to pay <strong>{{ formatPrice(amountToPay) }}</strong></span>
-      <a class="co-link" (click)="viewBreakup()">View breakup</a>
+      <span class="co-bottombar-info">
+        <span class="co-bottombar-amt">Amount to pay <strong>{{ formatPrice(amountToPay) }}</strong></span>
+        <a class="co-link" (click)="viewBreakup()">View breakup</a>
+      </span>
+      <button type="button" class="co-primary-btn" (click)="pay()">
+        {{ user ? 'Proceed to pay' : 'Login to pay' }}
+      </button>
     </div>
   </div>
 </div>

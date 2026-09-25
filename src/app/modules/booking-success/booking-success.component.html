@@ -1,0 +1,42 @@
+<div class="bs-page">
+  <header class="bs-topbar">
+    <a routerLink="/" class="bs-brand" aria-label="MyGenie home">
+      <img [src]="logoUrl" alt="MyGenie" class="bs-logo" />
+    </a>
+  </header>
+
+  <main class="bs-body" *ngIf="booking">
+    <div class="bs-check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="5 12.5 10 17.5 19 7.5" />
+      </svg>
+    </div>
+
+    <h1 class="bs-title">Payment successful</h1>
+    <p class="bs-sub">Your booking is confirmed. Booking details have been sent to your phone.</p>
+
+    <section class="bs-card">
+      <div class="bs-row">
+        <span>Service</span>
+        <span>{{ booking.title }}</span>
+      </div>
+      <div class="bs-row">
+        <span>Items</span>
+        <span>{{ booking.items }}</span>
+      </div>
+      <div class="bs-row">
+        <span>Address</span>
+        <span>{{ booking.address }}</span>
+      </div>
+      <div class="bs-row bs-row-total">
+        <span>Amount paid</span>
+        <span>{{ formatPrice(booking.amount) }}</span>
+      </div>
+    </section>
+
+    <button type="button" class="bs-primary-btn" (click)="goHome()">Back to home</button>
+    <p class="bs-redirect" aria-live="polite">
+      Redirecting to home in {{ secondsLeft }} {{ secondsLeft === 1 ? 'second' : 'seconds' }}…
+    </p>
+  </main>
+</div>

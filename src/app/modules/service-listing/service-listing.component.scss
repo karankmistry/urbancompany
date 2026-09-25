@@ -680,6 +680,7 @@
   .uc-sl-section {
     order: 3;
     padding: 24px 16px 8px;
+    scroll-margin-top: 60px; // keep the title clear of the sticky mobile bar
 
     .uc-sl-section-title {
       font-size: 22px;
